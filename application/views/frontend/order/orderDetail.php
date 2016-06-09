@@ -147,7 +147,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="product-bit-title text-center">
-                            <h2>Member Profile</h2>
+                            <h2>Order Detail</h2>
                         </div>
                     </div>
                 </div>
@@ -156,34 +156,55 @@
         <div class="single-product-area">
             <div class="zigzag-bottom"></div>
             <div class="container">
-                <?php foreach ($user as $row){ ?>
-                <form id="login" method="post"  action="<?php echo base_url(); ?>index.php/frontend/AccountController/editMenber/<?php echo $row['user_username']; ?>/<?php echo $row['user_password']; ?>" >
+                
+                
                     <div class="row">
                         <div class="col-md-12">
                             <div class="single-sidebar">
-                                <h2 class="sidebar-title">MEMBER PROFILE | ข้อมูลของฉัน</h2>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <h2 class="sidebar-title">Order Detail | รายละเอียดการสั่งซื้อ</h2>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="<?php echo base_url(); ?>index.php/frontend/orderController/index" class="btn btn-primary">ย้อนกลับ</a>
+                                    </div>
+                                </div>
                                 
-                                <label class="" for="billing_first_name">ชื่อ <abbr title="required" class="required"><font color="red">*</font></abbr></label>
-                                <input type="text" maxlength="30" placeholder="ชื่อ" id="user_name" name="user_name" value="<?php echo $row['user_name']; ?>">
+                                <label>เลขที่สั่งซื้อ : <?php echo $order[0]['order_key']; ?></label><br>
+                                <label>ชื่อผู้รับ : <?php echo $order[0]['adrress_prefix'].$order[0]['address_name'].$order[0]['address_lastname']; ?></label>
+                                <br>
+                                <label>ที่อยู่ :<?php echo $order[0]['address_address']; ?></label><br>
+                                <label>ตำบล/แขวง : <?php echo $order[0]['address_subdistrict']; ?></label>&nbsp;&nbsp;
+                                <label>อำเภอ/เขต : <?php echo $order[0]['address_city']; ?></label><br>
+                                <label>จังหวัด : <?php echo $order[0]['address_state']; ?></label>&nbsp;&nbsp;
+                                <label>ประเทศ : <?php echo $order[0]['address_country']; ?></label><br>
+                                <label>รหัสไปรษณีย์ : <?php echo $order[0]['address_zip']; ?></label>
+                                <hr>
+                                <table cellspacing="0" class="shop_table cart">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-remove">วันที่สั่งซื้อสินค้า</th>
+                                                <th class="product-price">รหัสสินค้า</th>
+                                                <th class="product-name">ชื่อสินค้า</th>
+                                                <th class="product-quantity">จำนวน(ชิ้น)</th>
+                                                <th class="product-quantity">รวมเป็นเงิน(บาท)</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($order as $row) {?>
+                                            <tr class="cart_item">
+                                                
+                                                <td><?php echo $row['order_date']; ?></td>
+                                                <td><?php echo $row['orderdetail_product_code']; ?></td>
+                                                <td><?php echo $row['orderdetail_product_name']; ?></td>
+                                                <td><?php echo $row['orderdetail_qty']; ?></td>
+                                                <td><span class="amount"><?php echo $this->cart->format_number($row['orderdetail_price']); ?></span></td>
+                                            </tr>
 
-                                <label class="" for="billing_first_name">นามสกุล <abbr title="required" class="required"><font color="red">*</font></abbr></label>
-                                <input type="text" maxlength="30" placeholder="นามสกุล" id="user_lastname" name="user_lastname" value="<?php echo $row['user_lastname']; ?>">
-
-                                <label class="" for="billing_first_name">อีเมลล์ <abbr title="required" class="required"><font color="red">*</font></abbr></label>
-                                <input type="text" maxlength="30" placeholder="อีเมลล์" id="user_email" name="user_email" value="<?php echo $row['user_email']; ?>">
-
-                                <label class="" for="billing_first_name">เบอร์ติดต่อ <abbr title="required" class="required"><font color="red">*</font></abbr></label>
-                                <input type="text"  placeholder="เบอร์ติดต่อ" id="user_phonenumber" name="user_phonenumber" value="<?php echo "0".$row['user_phonenumber']; ?>">
-
-
-                                <label class="" for="billing_first_name">รหัสผ่านใหม่ <abbr title="required" class="required"><font color="red">*</font></abbr></label>
-                                <input type="text" maxlength="10" placeholder="รหัสผ่านใหม่" id="new_password" name="new_password">
-
-
-
-                            <!--<input type="submit" value="สมัครสมาชิก">-->
-                                <!--<a href="<?php echo base_url(); ?>index.php/frontend/registerController/index">สมัครสมาชิก</a>
-                                <a id="save" class="button">เปลี่ยนแปลงข้อมูล</a>-->
+                                            <?php }?>
+                                        </tbody>
+                                    </table>
 
                             </div>
                         </div>
@@ -197,14 +218,9 @@
                         </div>-->
 
                     </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <button class="button" type="submit">เปลี่ยนแปลงข้อมูล</button>
-                            
-                        </div>
-                    </div>
-                </form>
-                <?php }?>
+                    
+             
+                
             </div>
 
         </div>

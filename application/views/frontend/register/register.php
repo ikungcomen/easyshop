@@ -7,27 +7,26 @@
     <title>Online Easy Shop</title>
     
     <!-- Google Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
-    
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="<?php echo base_url();?>css/bootstrap.min.css">
-    
-    <!-- my button css -->
-    <link rel="stylesheet" href="<?php echo base_url();?>css/mybutton.css">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?php echo base_url();?>css/font-awesome.min.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?php echo base_url();?>css/owl.carousel.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>style.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>css/responsive.css">
+        <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
 
-    <!-- Modal -->
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap.min.css">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>css/font-awesome.min.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>css/owl.carousel.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>style.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>css/responsive.css">
+        
+        <link rel="stylesheet" href="<?php echo base_url(); ?>css/mybutton.css">
+    
+        <!-- Modal 
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
     
 
 
@@ -46,11 +45,9 @@
                 <div class="col-md-6">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> บัญชีของฉัน</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> ตะกร้าสินค้าของฉัน</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> แจ้งการชำระเงิน</a></li>
-                            <!--<li><a href="#"><i class="fa fa-user"></i> เข้าสู่ระบบ</a></li>-->
+                            <li><a href="<?php echo base_url(); ?>index.php/frontend/AccountController/index"><i class="fa fa-user"></i> บัญชีของฉัน</a></li>
+                                <li><a href="<?php echo base_url(); ?>index.php/frontend/cartController/index"><i class="fa fa-user"></i> ตะกร้าสินค้าของฉัน</a></li>
+                                <li><a href="<?php echo base_url(); ?>index.php/frontend/checkoutController/index"><i class="fa fa-user"></i> แจ้งการชำระเงิน</a></li>
                         </ul>
                     </div>
 
@@ -60,16 +57,19 @@
                     <div class="header-right">
                         <ul class="list-unstyled list-inline">
                             <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key"><?php if ($this->session->userdata('logincomplete') != 1){ ?>เข้าสู่ระบบ / สมัครสมาชิก<?php }else{?>ประวัติการสั่งซื้อ <?php }?></span><!--<span class="value">USD </span>--><b class="caret"></b></a>
+                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key"><?php if ($this->session->userdata('logincomplete') != 1){ ?>เข้าสู่ระบบ / สมัครสมาชิก<?php }else{?><?php echo "สวัสดีคุณ ". $this->session->userdata('user_name')." ".$this->session->userdata('user_lastname'); ?> <?php }?></span><!--<span class="value">USD </span>--><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <?php if ($this->session->userdata('logincomplete') != 1){ ?>
                                         <li class="text-left"><a href="<?php echo base_url();?>index.php/frontend/loginController/index">เข้าสู่ระบบ</a></li>
                                         <li class="text-left"><a href="<?php echo base_url();?>index.php/frontend/registerController/index">สมัครสมาชิก</a></li>
                                     <?php  }?>
                                     
-                                    <li class="text-left"><a href="#">ประวัติการสั่งซื้อ</a></li>
+                                   
                                     <?php if($this->session->userdata('logincomplete') == 1){?>
-                                        <li class="text-left"><a href="<?php echo base_url();?>index.php/frontend/loginController/logout"><font color="red">ออกจากระบบ</font></a></li>
+                                        <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/orderController/index">ประวัติการสั่งซื้อ</a></li>
+                                            <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/AccountController/addreddShip">ที่อยู่สำหรับจัดส่ง</a></li>
+                                            <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/loginController/logout"><font color="red">ออกจากระบบ</font></a></li>
+                                            
                                     <?php }?>
                                 </ul>
                             </li>
@@ -131,8 +131,7 @@
                         <li><a href="<?php echo base_url();?>index.php/frontend/productController/index">สินค้า</a></li>
                         <li><a href="<?php echo base_url();?>index.php/frontend/cartController/index">ตะกร้าสินค้า</a></li>
                         <li><a href="<?php echo base_url();?>index.php/frontend/checkoutController/index">แจ้งการชำระเงิน</a></li>
-                        <li><a href="#">สร้างลายเสื้อใหม่</a></li>
-                        <li><a href="#">วิธีการใช้งาน</a></li>
+                        <li><a href="<?php echo base_url();?>index.php/frontend/PaymentController/index">วิธีการชำระเงิน</a></li>
                         <li><a href="<?php echo base_url();?>index.php/frontend/contactController/index">ติดต่อเรา</a></li>
                     </ul>
                 </div>  
@@ -155,7 +154,7 @@
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">สมัครสมาชิก</h2>
                         <form id="register" method="post"  action="<?php echo base_url();?>index.php/frontend/registerController/save_register" >
@@ -179,22 +178,31 @@
 
                             
 
+           
+      
                             <!--<input type="submit" value="สมัครสมาชิก">-->
-                            <a id="save" class="button">สมัครสมาชิก</a>
+                            
+                            
                         </form>
                     </div>
                 </div>
+                <!--
                 <?php if($this->session->userdata('logincomplete') != 1){?>
                 <div class="col-md-6">
                     <div class="product-content-right">
                         <div class="woocommerce">
-                            <div class="woocommerce-info">Returning customer? &nbsp;<a class="showlogin"  href="<?php echo base_url();?>index.php/frontend/loginController/index" >Click here to login</a>
+                            <div class="woocommerce-info">คุณเข้าสู่ระบบหรือยัง ? &nbsp;<a class="showlogin"  href="<?php echo base_url();?>index.php/frontend/loginController/index" >เข้าสู่ระบบ</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <?php }?>
+                <?php }?>-->
                            
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <a id="save" class="button-l">สมัครสมาชิก</a>
+                </div>
             </div>
         </div>
     </div>
@@ -346,7 +354,7 @@
           <p id="value_message"></p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
       </div>
       
@@ -401,13 +409,43 @@
                 $('#value_message').html('กรุณาระบุ รหัสผ่าน');
                 $('#myModal').modal('show');
             }else{
-                $('#message_confirm').html('ท่านต้องการบันทึกข้อมูล ใช่หรือไม่');
-                    $('#myModal_confirm').modal('show');
-                    $('#confirm').click(function(){
-                        $("#register").submit();
-                    });
+                    $.ajax({  
+                        type: "POST",  
+                        url: "<?php echo base_url();?>index.php/frontend/registerController/check_username",  
+                        data: { user_username: user_username}  
+                    })  
+                    .done(function(data) {  
+                        if(data == 1){
+                            $('#value_message').html('เนื่องจากมีข้อมูลชื่อผู้ใช้ : '+user_username+' อยู่แล้วในระบบ');
+                            $('#myModal').modal('show');
+                        }else{
+                            $('#message_confirm').html('ท่านต้องการบันทึกข้อมูล ใช่หรือไม่');
+                            $('#myModal_confirm').modal('show');
+                            $('#confirm').click(function(){
+                                $("#register").submit();
+                            });
+                        }
+                    });  
+                    
             }
         });
+        $("#user_username").keyup(function(){    
+                var user_username = $('#user_username').val();  
+                    $.ajax({  
+                        type: "POST",  
+                        url: "<?php echo base_url();?>index.php/frontend/registerController/check_username",  
+                        data: { user_username: user_username}  
+                    })  
+                    .done(function(data) {  
+                        //$('#check_email').val(data);  
+                        if(data == 1){
+                            $('#value_message').html('เนื่องจากมีข้อมูลชื่อผู้ใช้ : '+user_username+' แล้วในระบบ');
+                            $('#myModal').modal('show');
+                        }
+                    });   
+  
+                });  
+  
       });
         
 

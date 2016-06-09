@@ -24,10 +24,11 @@
     <link rel="stylesheet" href="<?php echo base_url();?>css/owl.carousel.css">
     <link rel="stylesheet" href="<?php echo base_url();?>style.css">
     <link rel="stylesheet" href="<?php echo base_url();?>css/responsive.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/mybutton.css">
 
-    <!-- Modal -->
+    <!-- Modal 
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
     
 
 
@@ -46,11 +47,9 @@
                 <div class="col-md-6">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> บัญชีของฉัน</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> ตะกร้าสินค้าของฉัน</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> แจ้งการชำระเงิน</a></li>
-                            <!--<li><a href="#"><i class="fa fa-user"></i> เข้าสู่ระบบ</a></li>-->
+                            <li><a href="<?php echo base_url(); ?>index.php/frontend/AccountController/index"><i class="fa fa-user"></i> บัญชีของฉัน</a></li>
+                                <li><a href="<?php echo base_url(); ?>index.php/frontend/cartController/index"><i class="fa fa-user"></i> ตะกร้าสินค้าของฉัน</a></li>
+                                <li><a href="<?php echo base_url(); ?>index.php/frontend/checkoutController/index"><i class="fa fa-user"></i> แจ้งการชำระเงิน</a></li>
                         </ul>
                     </div>
 
@@ -60,16 +59,19 @@
                     <div class="header-right">
                         <ul class="list-unstyled list-inline">
                             <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key"><?php if ($this->session->userdata('logincomplete') != 1){ ?>เข้าสู่ระบบ / <?php }?>สมัครสมาชิก</span><!--<span class="value">USD </span>--><b class="caret"></b></a>
+                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key"><?php if ($this->session->userdata('logincomplete') != 1){ ?>เข้าสู่ระบบ / สมัครสมาชิก<?php }else{?><?php echo "สวัสดีคุณ ". $this->session->userdata('user_name')." ".$this->session->userdata('user_lastname'); ?> <?php }?></span><!--<span class="value">USD </span>--><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <?php if ($this->session->userdata('logincomplete') != 1){ ?>
                                         <li class="text-left"><a href="<?php echo base_url();?>index.php/frontend/loginController/index">เข้าสู่ระบบ</a></li>
                                         <li class="text-left"><a href="<?php echo base_url();?>index.php/frontend/registerController/index">สมัครสมาชิก</a></li>
                                     <?php  }?>
                                     
-                                    <li class="text-left"><a href="#">ประวัติการสั่งซื้อ</a></li>
+                                   
                                     <?php if($this->session->userdata('logincomplete') == 1){?>
-                                        <li class="text-left"><a href="<?php echo base_url();?>index.php/frontend/loginController/logout"><font color="red">ออกจากระบบ</font></a></li>
+                                        <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/orderController/index">ประวัติการสั่งซื้อ</a></li>
+                                            <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/AccountController/addreddShip">ที่อยู่สำหรับจัดส่ง</a></li>
+                                            <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/loginController/logout"><font color="red">ออกจากระบบ</font></a></li>
+                                            
                                     <?php }?>
                                 </ul>
                             </li>
@@ -131,8 +133,7 @@
                         <li><a href="<?php echo base_url();?>index.php/frontend/productController/index">สินค้า</a></li>
                         <li><a href="<?php echo base_url();?>index.php/frontend/cartController/index">ตะกร้าสินค้า</a></li>
                         <li><a href="<?php echo base_url();?>index.php/frontend/checkoutController/index">แจ้งการชำระเงิน</a></li>
-                        <li><a href="#">สร้างลายเสื้อใหม่</a></li>
-                        <li><a href="#">วิธีการใช้งาน</a></li>
+                        <li><a href="<?php echo base_url();?>index.php/frontend/PaymentController/index">วิธีการชำระเงิน</a></li>
                         <li><a href="<?php echo base_url();?>index.php/frontend/contactController/index">ติดต่อเรา</a></li>
                     </ul>
                 </div>  
@@ -159,17 +160,17 @@
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">เข้าสู่ระบบ</h2>
                         <form id="login" method="post"  action="<?php echo base_url();?>index.php/frontend/loginController/checkLogin" >
-                            <label class="" for="billing_first_name">ชื่อผู้ใช้ <abbr title="required" class="required"><font color="red">*</font></abbr></label>
+                            <label class="" for="billing_first_name">ชื่อผู้ใช้ <abbr title="required" class="required"><span class="required">*</span></abbr></label>
                             <input type="text" maxlength="10" placeholder="ชื่อผู้ใช้" id="user_username" name="user_username">
 
-                            <label class="" for="billing_first_name">รหัสผ่าน <abbr title="required" class="required"><font color="red">*</font></abbr></label>
+                            <label class="" for="billing_first_name">รหัสผ่าน <abbr title="required" class="required"><span class="required">*</span></abbr></label>
                             <input type="text" maxlength="10" placeholder="รหัสผ่าน" id="user_password" name="user_password">
 
                             
 
                             <!--<input type="submit" value="สมัครสมาชิก">-->
                             <a href="<?php echo base_url();?>index.php/frontend/registerController/index">สมัครสมาชิก</a>
-                            <a id="save" class="button">เข้าสู่ระบบ</a>
+                            <a id="save" class="button-l">เข้าสู่ระบบ</a>
                         </form>
                     </div>
                 </div>

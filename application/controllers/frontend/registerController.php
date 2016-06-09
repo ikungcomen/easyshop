@@ -28,6 +28,12 @@ class registerController extends CI_Controller {
 		$this->load->view('frontend/register/register');
 	}
 
+        public function check_username(){
+            $user_username = $this->input->post('user_username');
+            $result = $this->DBhelper->check_username($user_username);
+            echo $result;
+            
+        }
 
 	
 }

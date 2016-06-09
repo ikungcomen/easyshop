@@ -37,11 +37,9 @@
                 <div class="col-md-6">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> บัญชีของฉัน</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> ตะกร้าสินค้าของฉัน</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> แจ้งการชำระเงิน</a></li>
-                            <!--<li><a href="#"><i class="fa fa-user"></i> เข้าสู่ระบบ</a></li>-->
+                            <li><a href="<?php echo base_url(); ?>index.php/frontend/AccountController/index"><i class="fa fa-user"></i> บัญชีของฉัน</a></li>
+                                <li><a href="<?php echo base_url(); ?>index.php/frontend/cartController/index"><i class="fa fa-user"></i> ตะกร้าสินค้าของฉัน</a></li>
+                                <li><a href="<?php echo base_url(); ?>index.php/frontend/checkoutController/index"><i class="fa fa-user"></i> แจ้งการชำระเงิน</a></li>
                         </ul>
                     </div>
 
@@ -51,16 +49,19 @@
                     <div class="header-right">
                         <ul class="list-unstyled list-inline">
                             <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key"><?php if ($this->session->userdata('logincomplete') != 1){ ?>เข้าสู่ระบบ / สมัครสมาชิก<?php }else{?>ประวัติการสั่งซื้อ <?php }?></span><!--<span class="value">USD </span>--><b class="caret"></b></a>
+                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key"><?php if ($this->session->userdata('logincomplete') != 1){ ?>เข้าสู่ระบบ / สมัครสมาชิก<?php }else{?><?php echo "สวัสดีคุณ ". $this->session->userdata('user_name')." ".$this->session->userdata('user_lastname'); ?> <?php }?></span><!--<span class="value">USD </span>--><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <?php if ($this->session->userdata('logincomplete') != 1){ ?>
                                         <li class="text-left"><a href="<?php echo base_url();?>index.php/frontend/loginController/index">เข้าสู่ระบบ</a></li>
                                         <li class="text-left"><a href="<?php echo base_url();?>index.php/frontend/registerController/index">สมัครสมาชิก</a></li>
                                     <?php  }?>
                                     
-                                    <li class="text-left"><a href="#">ประวัติการสั่งซื้อ</a></li>
+                                    
                                     <?php if($this->session->userdata('logincomplete') == 1){?>
-                                        <li class="text-left"><a href="<?php echo base_url();?>index.php/frontend/loginController/logout"><font color="red">ออกจากระบบ</font></a></li>
+                                        <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/orderController/index">ประวัติการสั่งซื้อ</a></li>
+                                            <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/AccountController/addreddShip">ที่อยู่สำหรับจัดส่ง</a></li>
+                                            <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/loginController/logout"><font color="red">ออกจากระบบ</font></a></li>
+                                            
                                     <?php }?>
                                 </ul>
                             </li>
@@ -117,13 +118,12 @@
 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li ><a href="<?php echo base_url();?>index.php/indexController/index">หน้าแรก</a></li>
+                        <li><a href="<?php echo base_url();?>index.php/indexController/index">หน้าแรก</a></li>
                         <li><a href="<?php echo base_url();?>index.php/frontend/shopController/index">เลือกซื้อสินค้า</a></li>
                         <li><a href="<?php echo base_url();?>index.php/frontend/productController/index">สินค้า</a></li>
                         <li><a href="<?php echo base_url();?>index.php/frontend/cartController/index">ตะกร้าสินค้า</a></li>
                         <li><a href="<?php echo base_url();?>index.php/frontend/checkoutController/index">แจ้งการชำระเงิน</a></li>
-                        <li><a href="#">สร้างลายเสื้อใหม่</a></li>
-                        <li><a href="#">วิธีการใช้งาน</a></li>
+                        <li><a href="<?php echo base_url();?>index.php/frontend/PaymentController/index">วิธีการชำระเงิน</a></li>
                         <li class="active"><a href="<?php echo base_url();?>index.php/frontend/contactController/index">ติดต่อเรา</a></li>
                     </ul>
                 </div>  
@@ -144,7 +144,64 @@
         </div>
     </div>
     
-    
+    <div class="single-product-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-sidebar">
+                        <h2 class="sidebar-title">ติดต่อเรา</h2>
+                        <p>นายอนุราช แก้วละมุล </p>
+                        <p>ห้อง 1B เลขที่ 270 ถนนเจริญนคร ซอย 14 แยก 12 (ตรอกตุ๊กตา) แขวงคลองต้นไทร เขตคลองสาน กรุงเทพมหานคร 10600</p>
+                        <p>Tel  : 0895854562</p>
+                        <p>E-mail : ikungcomen@gmail.com</p>
+                        <p>Fb : www.facebook.com/ikungcomen</p>
+                        <p>Line ID  : ikungcomen</p>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <hr>
+                        <p>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img src="<?php echo base_url();?>img/bank/thai.jpg" width="350px" hieght = "350px">
+                                    
+                                </div>
+                                <div class="col-md-3">
+                                    <p>เลขที่บัญชี : 1682206882 (ออมทรัพย์)</p>
+                                    <p>ชื่อบัญชี : นายอนุราช แก้วละมุล</p>
+                                    <p>ธนาคาร : ไทยพาณิชย์</p>
+                                    <p>สาขา : ตึก CP Tower สีลม</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <img src="<?php echo base_url();?>img/bank/kasikorn.jpg" width="280px" hieght = "280px">
+                                </div>
+                                <div class="col-md-3">
+                                    <p>เลขที่บัญชี : 9082131288 (ออมทรัพย์)</p>
+                                    <p>ชื่อบัญชี  : นายอนุราช แก้วละมุล</p>
+                                    <p>ธนาคาร  : กสิกร</p>
+                                    <p>สาขา   : ซีคอนสแคว ศรีนครินทร์</p>
+                                </div>
+                            </div>
+                        </p>
+                        <hr>
+                    </div>
+                </div>
+               <!-- <?php if($this->session->userdata('logincomplete') != 1){?>
+                <div class="col-md-6">
+                    <div class="product-content-right">
+                        <div class="woocommerce">
+                            <div class="woocommerce-info">Returning customer? &nbsp;<a class="showlogin"  href="<?php echo base_url();?>index.php/frontend/loginController/index" >Click here to login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php }?>-->
+                           
+            </div>
+        </div>
+    </div>
 
     
     <div class="footer-top-area">

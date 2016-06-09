@@ -25,9 +25,11 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>style.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/responsive.css">
 
+        <link rel="stylesheet" href="<?php echo base_url(); ?>css/mybutton.css">
+        
         <!-- Modal -->
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
 
 
 
@@ -67,7 +69,7 @@
 
                                         
                                         <?php if ($this->session->userdata('logincomplete') == 1) { ?>
-                                            <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/orderController/index">ประวัติการสั่งซื้อ</a></li>
+                                           <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/orderController/index">ประวัติการสั่งซื้อ</a></li>
                                             <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/AccountController/addreddShip">ที่อยู่สำหรับจัดส่ง</a></li>
                                             <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/loginController/logout"><font color="red">ออกจากระบบ</font></a></li>
                                             
@@ -147,7 +149,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="product-bit-title text-center">
-                            <h2>Member Profile</h2>
+                            <h2>Order</h2>
                         </div>
                     </div>
                 </div>
@@ -156,55 +158,59 @@
         <div class="single-product-area">
             <div class="zigzag-bottom"></div>
             <div class="container">
-                <?php foreach ($user as $row){ ?>
-                <form id="login" method="post"  action="<?php echo base_url(); ?>index.php/frontend/AccountController/editMenber/<?php echo $row['user_username']; ?>/<?php echo $row['user_password']; ?>" >
+                
                     <div class="row">
                         <div class="col-md-12">
                             <div class="single-sidebar">
-                                <h2 class="sidebar-title">MEMBER PROFILE | ข้อมูลของฉัน</h2>
+                                <h2 class="sidebar-title">Order | ประวัติการสั่งซื้อ</h2>
+                                <table cellspacing="0" class="shop_table cart">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-remove">เลขที่การสั่งซื้อ</th>
+                                                <th class="product-remove">วันที่สั่งซื้อสินค้า</th>
+                                                <th class="product-price">จำนวนสินค้า(ชิ้น)</th>
+                                                <th class="product-name">จำนวนเงินรวม(บาท)</th>
+                                                <th class="product-quantity">สถานะการสั่งซื้อ</th>
+                                                <th class="product-quantity">เลขที่การจัดส่ง(EMS)</th>
+                                                <th class="product-quantity">ดูรายละเอียด</th>
+                                                <th class="product-quantity">ยกเลิกการสั่งซื้อ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($order as $row) {?>
+                                            <tr>
+                                                <td><?php echo $row['order_key']; ?></td>
+                                                <td><?php echo $row['order_date']; ?></td>
+                                                <td><?php echo $row['order_total_qty']; ?></td>
+                                                <td><?php echo $this->cart->format_number($row['order_total_price']); ?></td>
+                                                <?php if( $row['order_status'] == "O") {?>
+                                                <td><span class="required">รอการชำระเงิน</span></td>
+                                                <?php }else if($row['order_status'] == "C"){ ?>
+                                                     <td>รอการตำรวจสอบจากเจ้าหน้าที่</td>
+                                                <?php }else if($row['order_status'] == "P"){?>
+                                                     <td>เตรียมจัดส่งสินค้า</td>
+                                                <?php }else{?>
+                                                     <td>จัดส่งสินค้าเรียบร้อย</td>
+                                                <?php }?>
+                                                     <td><?php echo $row['order_ship_no']; ?></td>
+                                                     <td><a  class="btn btn-primary" href="<?php echo base_url(); ?>index.php/frontend/orderController/order_detail/<?php echo $row['order_key']; ?>">รายละเอียด</a></td>
+                                                     <?php if($row['order_status'] == "O"){?>
+                                                     <td><a  class="btn btn-warning" href="<?php echo base_url(); ?>index.php/frontend/orderController/cancel_order/<?php echo $row['order_key']; ?>">ยกเลิก</a></td>
+                                                     <?php }else{?>
+                                                     <td></td>
+                                                     <?php }?>
+                                            </tr>
+
+                                            <?php }?>
+                                        </tbody>
+                                    </table>
                                 
-                                <label class="" for="billing_first_name">ชื่อ <abbr title="required" class="required"><font color="red">*</font></abbr></label>
-                                <input type="text" maxlength="30" placeholder="ชื่อ" id="user_name" name="user_name" value="<?php echo $row['user_name']; ?>">
-
-                                <label class="" for="billing_first_name">นามสกุล <abbr title="required" class="required"><font color="red">*</font></abbr></label>
-                                <input type="text" maxlength="30" placeholder="นามสกุล" id="user_lastname" name="user_lastname" value="<?php echo $row['user_lastname']; ?>">
-
-                                <label class="" for="billing_first_name">อีเมลล์ <abbr title="required" class="required"><font color="red">*</font></abbr></label>
-                                <input type="text" maxlength="30" placeholder="อีเมลล์" id="user_email" name="user_email" value="<?php echo $row['user_email']; ?>">
-
-                                <label class="" for="billing_first_name">เบอร์ติดต่อ <abbr title="required" class="required"><font color="red">*</font></abbr></label>
-                                <input type="text"  placeholder="เบอร์ติดต่อ" id="user_phonenumber" name="user_phonenumber" value="<?php echo "0".$row['user_phonenumber']; ?>">
-
-
-                                <label class="" for="billing_first_name">รหัสผ่านใหม่ <abbr title="required" class="required"><font color="red">*</font></abbr></label>
-                                <input type="text" maxlength="10" placeholder="รหัสผ่านใหม่" id="new_password" name="new_password">
-
-
-
-                            <!--<input type="submit" value="สมัครสมาชิก">-->
-                                <!--<a href="<?php echo base_url(); ?>index.php/frontend/registerController/index">สมัครสมาชิก</a>
-                                <a id="save" class="button">เปลี่ยนแปลงข้อมูล</a>-->
 
                             </div>
                         </div>
-                        <!--<div class="col-md-6">
-                            <div class="product-content-right">
-                                <div class="woocommerce">
-                                    <div class="woocommerce-info">Returning customer? <a class="showlogin" data-toggle="collapse" href="#login-form-wrap" aria-expanded="false" aria-controls="login-form-wrap">Click here to login</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
-
                     </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <button class="button" type="submit">เปลี่ยนแปลงข้อมูล</button>
-                            
-                        </div>
-                    </div>
-                </form>
-                <?php }?>
+                
+               
             </div>
 
         </div>
@@ -384,25 +390,7 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#save").click(function () {
-
-                var user_username = $('#user_username').val();
-                var user_password = $('#user_password').val();
-
-                if (user_username == "") {
-                    $('#value_message').html('กรุณาระบุ ชื่อผู้ใช้');
-                    $('#myModal').modal('show');
-                } else if (user_password == "") {
-                    $('#value_message').html('กรุณาระบุ รหัสผ่าน');
-                    $('#myModal').modal('show');
-                } else {
-                    $('#message_confirm').html('ท่านต้องการเข้าสู่ระบบ ใช่หรือไม่');
-                    $('#myModal_confirm').modal('show');
-                    $('#confirm').click(function () {
-                        $("#login").submit();
-                    });
-                }
-            });
+            
         });
 
 
