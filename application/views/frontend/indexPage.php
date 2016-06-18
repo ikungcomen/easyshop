@@ -29,8 +29,8 @@
                                             <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/orderController/index">ประวัติการสั่งซื้อ</a></li>
                                             <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/AccountController/addreddShip">ที่อยู่สำหรับจัดส่ง</a></li>
                                             <?php if ($this->session->userdata('user_role') == "admin") { ?>
-                                                <li class="text-left"><a href="<?php echo base_url(); ?>index.php/">ตรวจสอบการแจ้งโอนเงิน</a></li>
-                                                <li class="text-left"><a href="<?php echo base_url(); ?>index.php/">พิมพ์ที่อยู่จัดส่งสินค้า</a></li>
+                                                <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/CheckpaymentController/index">ตรวจสอบการแจ้งโอนเงิน</a></li>
+                                                <li class="text-left"><a href="<?php echo base_url(); ?>index.php/frontend/orderController/order_print_address">พิมพ์ที่อยู่จัดส่งสินค้า</a></li>
                                                 <li class="text-left"><a href="<?php echo base_url(); ?>index.php/">อนุมัติจัดส่งสินค้า</a></li>
                                                 <li class="text-left"><a href="<?php echo base_url(); ?>index.php/">ตรวจนับสต๊อคสินค้า</a></li>
                                             <?php }?>

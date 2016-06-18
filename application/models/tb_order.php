@@ -26,6 +26,12 @@ class tb_order extends CI_Model {
         $result = $result->result_array();
         return $result;
     }
+    public function get_orderList_print(){
+        $sql = "select * from tb_order where  order_status = 'P'";
+        $result = $this->db->query($sql);
+        $result = $result->result_array();
+        return $result;
+    }
     public function addOrder($address,$order_date,$user_key,$total_qty,$total_price,$current_date,$user_username){
         $this->db->set('order_date', $order_date);
         $this->db->set('order_user_key', $user_key);
@@ -97,6 +103,42 @@ class tb_order extends CI_Model {
     public function cancel_order_detail($order_key){
         $this->db->where('order_key', $order_key);
         $this->db->delete('tb_orderdetail');
+        if ($this->db->affected_rows() > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    public function adjust_order($order_key,$date,$user_username){
+        $this->db->set('order_status', "P");
+        $this->db->set('update_date', $date);
+        $this->db->set('update_user', $user_username);
+         $this->db->where('order_key', $order_key);
+        $this->db->update('tb_order');
+        if ($this->db->affected_rows() > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    public function unadjust_order($order_key,$date,$user_username){
+        $this->db->set('order_status', "O");
+        $this->db->set('update_date', $date);
+        $this->db->set('update_user', $user_username);
+         $this->db->where('order_key', $order_key);
+        $this->db->update('tb_order');
+        if ($this->db->affected_rows() > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    public function update_status_order($ordernumber,$date,$user_username){
+        $this->db->set('order_status', "C");
+        $this->db->set('update_date', $date);
+        $this->db->set('update_user', $user_username);
+         $this->db->where('order_key', $ordernumber);
+        $this->db->update('tb_order');
         if ($this->db->affected_rows() > 0) {
             return 1;
         } else {

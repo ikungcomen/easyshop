@@ -84,6 +84,13 @@ class orderController extends CI_Controller{
         
         
     }
+    public function order_print_address(){
+        $result['order'] = $this->tb_order->get_orderList_print();
+        $this->load->view('frontend/include/header');
+        $this->load->view('frontend/printAddress/printAddress',$result);
+        $this->load->view('frontend/include/footter');
+    }
+
     
     
 }

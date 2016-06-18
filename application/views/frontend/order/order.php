@@ -188,16 +188,16 @@
                                                 <?php }else if($row['order_status'] == "C"){ ?>
                                                      <td>รอการตำรวจสอบจากเจ้าหน้าที่</td>
                                                 <?php }else if($row['order_status'] == "P"){?>
-                                                     <td>เตรียมจัดส่งสินค้า</td>
+                                                     <td><font color="blue">เตรียมจัดส่งสินค้า</font></td>
                                                 <?php }else{?>
-                                                     <td>จัดส่งสินค้าเรียบร้อย</td>
+                                                     <td><font color="green">จัดส่งสินค้าเรียบร้อย</font></td>
                                                 <?php }?>
                                                      <td><?php echo $row['order_ship_no']; ?></td>
                                                      <td><a  class="btn btn-primary" href="<?php echo base_url(); ?>index.php/frontend/orderController/order_detail/<?php echo $row['order_key']; ?>">รายละเอียด</a></td>
                                                      <?php if($row['order_status'] == "O"){?>
                                                      <td><a  class="btn btn-warning" href="<?php echo base_url(); ?>index.php/frontend/orderController/cancel_order/<?php echo $row['order_key']; ?>">ยกเลิก</a></td>
                                                      <?php }else{?>
-                                                     <td></td>
+                                                     <td><font color="red">*** ไม่สามารถยกเลิกได้ กำลังเตรียมจัดส่งสินค้า</font></td>
                                                      <?php }?>
                                             </tr>
 
