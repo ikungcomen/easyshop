@@ -50,7 +50,7 @@ class loginController extends CI_Controller {
             $result['product']  = $this->Tb_product->load_product();
             $result['blandner'] = $this->Tb_blandner->load_blandner();
             $this->load->view('frontend/include/header');
-            $this->load->view('frontend/indexPage', $result);
+            $this->load->view('frontend/index', $result);
             $this->load->view('frontend/include/footter');
         } else {
             $this->load->view('frontend/login/login');
